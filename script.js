@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Game Variables
     let currentPlayer = 'X';
     let board = ['', '', '', '', '', '', '', '', ''];
     let gameOver = false;
@@ -7,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusDiv = document.getElementById('status');
     const resetButton = document.getElementById('resetButton');
 
-    // Check for Winner
     function checkWinner() {
         const winPatterns = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -24,16 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
-    // Handle Cell Click
     function handleCellClick(event) {
         const index = parseInt(event.target.getAttribute('data-index'), 10);
         if (board[index] || gameOver) return;
 
-        // Update board and UI
         board[index] = currentPlayer;
         event.target.textContent = currentPlayer;
 
-        // Check game status
         if (checkWinner()) {
             gameOver = true;
             statusDiv.textContent = `${currentPlayer} Wins!`;
@@ -46,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Reset the game
     function resetGame() {
         board.fill('');
         gameOver = false;
@@ -57,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add event listeners
     cells.forEach((cell, index) => {
         cell.setAttribute('data-index', index); // Ensure data-index is set
         cell.addEventListener('click', handleCellClick);
@@ -65,6 +58,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resetButton.addEventListener('click', resetGame);
 
-    // Initial Status
     statusDiv.textContent = `Player ${currentPlayer}'s Turn`;
 });
